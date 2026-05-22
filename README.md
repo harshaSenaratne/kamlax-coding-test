@@ -1,6 +1,16 @@
 # Portfolio Management Dashboard
 
 A portfolio dashboard for viewing investments, tracking transaction history, and managing investment positions. 
+
+## Screenshots
+
+<img width="1416" height="729" alt="Screenshot 2026-05-22 at 10 29 41 AM" src="https://github.com/user-attachments/assets/fb38a474-1e19-4da1-8ef7-cf347f1ff0dd" />
+<img width="1423" height="732" alt="Screenshot 2026-05-22 at 10 29 55 AM" src="https://github.com/user-attachments/assets/054d9b16-28ab-4dd3-aebb-4a2e9234cf13" />
+<img width="1428" height="681" alt="Screenshot 2026-05-22 at 10 30 09 AM" src="https://github.com/user-attachments/assets/b9536a94-a4df-4432-8c28-ed6ead10d37a" />
+<img width="1423" height="732" alt="Screenshot 2026-05-22 at 10 30 31 AM" src="https://github.com/user-attachments/assets/0c399ca7-1ae4-473d-89e3-fb79b95c086b" />
+
+
+
 ## Run Locally
 
 The API expects PostgreSQL on `localhost:5432`. 
