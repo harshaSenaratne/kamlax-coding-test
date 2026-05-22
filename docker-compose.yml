@@ -1,0 +1,46 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-portfolio}
+      POSTGRES_USER: ${POSTGRES_USER:-portfolio}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-portfolio}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-portfolio} -d ${POSTGRES_DB:-portfolio}"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    ports:
+      - "5432:5432"
+    volumes:
+      - portfolio_db:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: ./backend
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      DATABASE_URL: ${DATABASE_URL:-postgresql://portfolio:portfolio@db:5432/portfolio}
+      JWT_SECRET: ${JWT_SECRET:-replace-with-a-long-random-secret-for-local-development}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-8h}
+      DEMO_USER_EMAIL: ${DEMO_USER_EMAIL:-demo@portfolio.local}
+      DEMO_USER_PASSWORD: ${DEMO_USER_PASSWORD:-DemoPass123!}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:5173,http://localhost:3000}
+    ports:
+      - "4000:4000"
+
+  web:
+    build:
+      context: ./frontend
+    depends_on:
+      - api
+    ports:
+      - "3000:80"
+
+volumes:
+  portfolio_db:
+
